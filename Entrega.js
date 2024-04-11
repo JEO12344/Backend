@@ -1,6 +1,24 @@
+const fs = require('fs');
+
 class ProductManager {
-  constructor() {
-    this.products = [];
+  constructor(filePath) {
+    this.path = filePath;
+    this.products = this.loadProducts();
+  }
+
+  loadProducts() {
+    try {
+      const data = fs.readFileSync(this.path, 'utf8');
+      return JSON.parse(data);
+    } catch (error) {
+      // If file doesn't exist or is empty, return an empty array
+      return [];
+    }
+  }
+
+  saveProducts() {
+    const data = JSON.stringify(this.products, null, 2);
+    fs.writeFileSync(this.path, data, 'utf8');
   }
 
   getProducts() {
@@ -28,6 +46,7 @@ class ProductManager {
     };
 
     this.products.push(newProduct);
+    this.saveProducts();
 
     return newProduct;
   }
@@ -46,6 +65,7 @@ class ProductManager {
       throw new Error('Producto no encontrado.');
     }
     this.products[index] = { ...this.products[index], ...updatedProduct };
+    this.saveProducts();
     return this.products[index];
   }
 
@@ -55,11 +75,12 @@ class ProductManager {
       throw new Error('Producto no encontrado.');
     }
     const deletedProduct = this.products.splice(index, 1);
+    this.saveProducts();
     return deletedProduct[0];
   }
 }
 
-const manager = new ProductManager();
+const manager = new ProductManager('productos.json');
 
 console.log('Productos al principio:', manager.getProducts());
 
