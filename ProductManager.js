@@ -11,7 +11,6 @@ class ProductManager {
       const data = fs.readFileSync(this.path, 'utf8');
       return JSON.parse(data);
     } catch (error) {
-      // If file doesn't exist or is empty, return an empty array
       return [];
     }
   }
@@ -80,53 +79,6 @@ class ProductManager {
   }
 }
 
-const manager = new ProductManager('productos.json');
-
-console.log('Productos al principio:', manager.getProducts());
-
-try {
-  const newProduct = manager.addProduct({
-    title: 'producto prueba',
-    description: 'Este es un producto prueba',
-    price: 200,
-    thumbnail: 'Sin imagen',
-    code: 'abc123',
-    stock: 25
-  });
-  console.log('Producto agregado:', newProduct);
-
-  console.log('Productos después de agregar:', manager.getProducts());
-
-  try {
-    manager.addProduct({
-      title: 'producto repetido',
-      description: 'Este es un producto repetido',
-      price: 300,
-      thumbnail: 'Otra imagen',
-      code: 'abc123',
-      stock: 10
-    });
-  } catch (error) {
-    console.error('Error al agregar producto repetido:', error.message);
-  }
-
-  const foundProduct = manager.getProductById(newProduct.id);
-  console.log('Producto encontrado por ID:', foundProduct);
-
-  try {
-    manager.getProductById('nonexistentID');
-  } catch (error) {
-    console.error('Error al buscar producto inexistente:', error.message);
-  }
-
-  const updatedProduct = manager.updateProduct(newProduct.id, {
-    price: 250,
-    stock: 30
-  });
-  console.log('Producto actualizado:', updatedProduct);
-
-  const deletedProduct = manager.deleteProduct(newProduct.id);
-  console.log('Producto eliminado:', deletedProduct);
-} catch (error) {
-  console.error('Error:', error.message);
-}
+module.exports = {
+  ProductManager: ProductManager
+};

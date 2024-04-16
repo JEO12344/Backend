@@ -1,0 +1,39 @@
+[
+    {
+      "id": "1b7j7r7q7",
+      "title": "Camisa de algodón",
+      "description": "Camisa de algodón suave y cómoda para uso diario.",
+      "price": 20000,
+      "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_623739-MLA52367492162_112022-O.webp",
+      "code": "CM001",
+      "stock": 50
+    },
+    {
+      "id": "2c8m9s9a3",
+      "title": "Zapatillas deportivas",
+      "description": "Zapatillas deportivas ideales para correr y hacer ejercicio.",
+      "price": 40000,
+      "thumbnail": "https://acdn.mitiendanube.com/stores/001/171/785/products/rp1070grc1-17b37b56b5beb432b216869394799042-1024-1024.jpg",
+      "code": "ZP002",
+      "stock": 30
+    },
+    {
+      "id": "3d1k2l7a5",
+      "title": "Mochila resistente al agua",
+      "description": "Mochila con varios compartimentos y resistente al agua.",
+      "price": 35000,
+      "thumbnail": "https://lenidmayorista.com/cdn/shop/products/21601GRIS_530x@2x.png?v=1676639421",
+      "code": "MC003",
+      "stock": 20
+    },
+    {
+      "id": "4e9n3t2x8",
+      "title": "Gafas de sol polarizadas",
+      "description": "Gafas de sol con lentes polarizadas para una mejor protección contra los rayos UV.",
+      "price": 8000,
+      "thumbnail": "https://acdn.mitiendanube.com/stores/113/564/products/2-2-noah-black-mate1-2d51915ecff272958e16276832782347-1024-1024.jpg",
+      "code": "GF004",
+      "stock": 15
+    }
+  ]
+  
