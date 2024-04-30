@@ -1,8 +1,8 @@
 const CartManager = require('../models/CartManager');
 const ProductManager = require('../models/ProductManager');
 
-const cartManager = new CartManager('carrito.json');
-const productManager = new ProductManager('productos.json');
+const cartManager = new CartManager('../models/CartManager.js');
+const productManager = new ProductManager('../models/ProductManager.js');
 
 exports.createCart = (req, res) => {
   try {

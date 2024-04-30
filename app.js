@@ -1,9 +1,9 @@
 const express = require('express');
-const { ProductManager } = require('./ProductManager'); // Asegúrate de que la ruta sea correcta
+const { ProductManager } = require('./models/ProductManager'); // Asegúrate de que la ruta sea correcta
 const app = express();
 const port = 3000;
 
-const productManager = new ProductManager('productos.json'); // Ruta al archivo de productos
+const productManager = new ProductManager('./data/productos.json'); // Ruta al archivo de productos
 
 // Endpoint para obtener todos los productos
 app.get('/products', (req, res) => {
