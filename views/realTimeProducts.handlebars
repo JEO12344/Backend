@@ -1,0 +1,31 @@
+<h1>Productos en Tiempo Real</h1>
+<ul id="product-list">
+  {{#each products}}
+  <li>
+    <h3>{{this.title}}</h3>
+    <p>{{this.description}}</p>
+    <p>Precio: ${{this.price}}</p>
+    <p>Código: {{this.code}}</p>
+    <p>Stock: {{this.stock}}</p>
+  </li>
+  {{/each}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+  // Escuchar eventos de actualización de productos y actualizar la vista
+  socket.on('productUpdate', (product) => {
+    const productList = document.getElementById('product-list');
+    const newProductItem = document.createElement('li');
+    newProductItem.innerHTML = `
+      <h3>${product.title}</h3>
+      <p>${product.description}</p>
+      <p>Precio: $${product.price}</p>
+      <p>Código: ${product.code}</p>
+      <p>Stock: ${product.stock}</p>
+    `;
+    productList.appendChild(newProductItem);
+  });
+</script>

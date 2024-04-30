@@ -1,44 +1,40 @@
 const express = require('express');
-const { ProductManager } = require('./models/ProductManager'); // Asegúrate de que la ruta sea correcta
+const exphbs = require('express-handlebars');
+const http = require('http');
+const socketIO = require('socket.io');
+
+const { ProductManager } = require('./models/ProductManager');
+const homeRouter = require('./routes/homeRouter');
+const realtimeRouter = require('./routes/realtimeRouter');
+
 const app = express();
-const port = 3000;
+const server = http.createServer(app);
+const io = socketIO(server);
 
-const productManager = new ProductManager('./data/productos.json'); // Ruta al archivo de productos
+// Configurar Handlebars
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
-// Endpoint para obtener todos los productos
-app.get('/products', (req, res) => {
-  try {
-    let products = productManager.getProducts();
+// Configurar rutas
+app.use('/', homeRouter);
+app.use('/realtimeproducts', realtimeRouter);
 
-    // Verificar si hay parámetro de límite ?limit=
-    const limit = req.query.limit;
-    if (limit) {
-      const parsedLimit = parseInt(limit);
-      if (!isNaN(parsedLimit) && parsedLimit > 0) {
-        products = products.slice(0, parsedLimit);
-      } else {
-        return res.status(400).json({ error: 'El parámetro de límite debe ser un número entero positivo.' });
-      }
-    }
+// Configurar Socket.IO
+io.on('connection', (socket) => {
+  console.log('Un usuario se ha conectado');
 
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: 'Error al obtener productos.' });
-  }
+  // Emitir eventos de actualización de productos
+  socket.on('updateProduct', (product) => {
+    // Actualizar el producto en el ProductManager
+    productManager.updateProduct(product.id, product);
+
+    // Emitir el evento a todos los clientes conectados
+    io.emit('productUpdate', product);
+  });
 });
 
-// Endpoint para obtener un producto por ID
-app.get('/products/:pid', (req, res) => {
-  const productId = req.params.pid;
+const productManager = new ProductManager('./data/productos.json');
 
-  try {
-    const product = productManager.getProductById(productId);
-    res.json(product);
-  } catch (error) {
-    res.status(404).json({ error: 'Producto no encontrado.' });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Servidor Express corriendo en http://localhost:${port}`);
+server.listen(3000, () => {
+  console.log('Servidor iniciado en http://localhost:3000');
 });
