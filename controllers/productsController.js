@@ -1,6 +1,6 @@
 const ProductManager = require('../models/ProductManager');
 
-const productManager = new ProductManager('../data/productos.json');
+const productManager = new ProductManager('./data/productos.json');
 
 exports.getAllProducts = (req, res) => {
   try {

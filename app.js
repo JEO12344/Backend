@@ -36,5 +36,7 @@ io.on('connection', (socket) => {
 const productManager = new ProductManager('./data/productos.json');
 
 server.listen(3000, () => {
-  console.log('Servidor iniciado en http://localhost:3000');
+  console.log('Servidor iniciado en http://localhost:8080');
 });
+
+

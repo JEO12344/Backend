@@ -1,5 +1,5 @@
 const express = require('express');
-const realtimeController = require('../controllers/realtimeController');
+const realtimeController = require('./controllers/realtimeController');
 
 const router = express.Router();
 
